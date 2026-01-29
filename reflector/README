@@ -6,4 +6,10 @@ $ helm repo update
 $ helm upgrade --install reflector emberstack/reflector
 ```
 
+```bash
+#!/usr/bin/env bash
+set -e
 
+echo "Deploying app..."
+kubectl apply -f deployment.yaml
+```
