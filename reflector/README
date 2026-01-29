@@ -1,15 +1,6 @@
-Deploy reflector with helm: 
+Deploy reflector with Helm:
 
 ```sh
-$ helm repo add emberstack https://emberstack.github.io/helm-charts
-$ helm repo update
-$ helm upgrade --install reflector emberstack/reflector
-```
-
-```bash
-#!/usr/bin/env bash
-set -e
-
-echo "Deploying app..."
-kubectl apply -f deployment.yaml
-```
+helm repo add emberstack https://emberstack.github.io/helm-charts
+helm repo update
+helm upgrade --install reflector emberstack/reflector
