@@ -12,6 +12,7 @@ spec:
     - repoURL: https://github.com/linusdahlbergpriv/k8s-public.git
       targetRevision: main
       path: harbor
+      ref: values 
 
     # 2️⃣ Official Harbor Helm chart
     - repoURL: https://helm.goharbor.io
