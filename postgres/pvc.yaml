@@ -4,8 +4,8 @@ metadata:
   name: postgres-pvc
 spec:
   accessModes:
-	- ReadWriteOnce
+    - ReadWriteOnce
   resources:
-	requests:
-  	storage: 5Gi
+    requests:
+      storage: 5Gi
   storageClassName: local-path
