@@ -2,22 +2,28 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: harbor
-  namespace: argocd  # Argo CD Application resource lives here
+  namespace: argocd
 spec:
   project: default
+
   source:
-    repoURL: https://helm.goharbor.io   # Remote Helm chart repo
-    chart: harbor
-    targetRevision: 1.14.0
+    repoURL: https://github.com/linusdahlbergpriv/k8s-public.git
+    targetRevision: main
+    path: harbor
     helm:
+      chart: harbor
+      repoURL: https://helm.goharbor.io
+      targetRevision: 1.14.0
       valueFiles:
         - values.yaml
+
   destination:
     server: https://kubernetes.default.svc
-    namespace: harbor   # Namespace where Harbor will be deployed
+    namespace: harbor
+
   syncPolicy:
     automated:
-      selfHeal: true    # Automatically reconcile drift
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
 
