@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/linusdahlbergpriv/k8s-public.git
     targetRevision: main
-    path: /harbor
+    path: harbor
     helm:
       chart: harbor
       repoURL: https://helm.goharbor.io
