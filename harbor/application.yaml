@@ -6,13 +6,10 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/linusdahlbergpriv/k8s-public.git
-    targetRevision: main
-    path: harbor
+    repoURL: https://helm.goharbor.io
+    chart: harbor
+    targetRevision: 1.14.0
     helm:
-      chart: harbor
-      repoURL: https://helm.goharbor.io
-      targetRevision: 1.14.0
       valueFiles:
         - values.yaml
   destination:
