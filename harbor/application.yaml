@@ -37,3 +37,12 @@ spec:
   ignoreDifferences:
     - group: batch
       kind: Job           # Ignore ephemeral Jobs to avoid false OutOfSync
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: networking.k8s.io
+      kind: Ingress
+      jsonPointers:
+      - /metadata/annotations
+      
