@@ -6,10 +6,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://helm.goharbor.io
-    chart: harbor
-    targetRevision: 1.14.0   # pin your version
+    repoURL: https://github.com/linusdahlbergpriv/k8s-public/harbor
+    targetRevision: main
+    path: .
     helm:
+      chart: harbor
+      repoURL: https://helm.goharbor.io
+      targetRevision: 1.14.0
       valueFiles:
         - values.yaml
   destination:
@@ -17,5 +20,6 @@ spec:
     namespace: harbor
   syncPolicy:
     automated:
-      prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
