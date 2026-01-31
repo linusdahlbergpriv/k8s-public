@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: harbor
-  namespace: argocd   # Argo CD Application resource lives here
+  namespace: argocd  # Argo CD Application resource lives here
 spec:
   project: default
   source:
@@ -31,8 +31,7 @@ spec:
     namespace: harbor   # Namespace where Harbor will be deployed
   syncPolicy:
     automated:
-      prune: true       # Delete orphaned resources automatically
-      selfHeal: true    # Reconcile drift automatically
+      selfHeal: true    # Automatically reconcile drift
     syncOptions:
       - CreateNamespace=true
   ignoreDifferences:
