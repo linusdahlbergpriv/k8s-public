@@ -45,7 +45,6 @@ spec:
     namespace: harbor
   syncPolicy:
     automated:
-      prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
