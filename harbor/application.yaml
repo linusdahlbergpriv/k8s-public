@@ -6,25 +6,35 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/linusdahlbergpriv/k8s-public.git
-    targetRevision: main
-    path: harbor
-    helm:
+  # Multi-source: 1) Git for values.yaml, 2) Helm repo for chart
+  sources:
+    # 1️⃣ Git repo containing values.yaml
+    - repoURL: https://github.com/linusdahlbergpriv/k8s-public.git
+      targetRevision: main
+      path: harbor
+
+    # 2️⃣ Official Harbor Helm chart
+    - repoURL: https://helm.goharbor.io
       chart: harbor
-      repoURL: https://helm.goharbor.io
       targetRevision: 1.14.0
-      valueFiles:
-        - values.yaml
+      helm:
+        valueFiles:
+          - $values/values.yaml   # This tells Argo CD to use your Git values.yaml
 
   destination:
     server: https://kubernetes.default.svc
     namespace: harbor
 
   syncPolicy:
-    automated:
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
 
-      
+    # Optional: selfHeal only if you want Argo CD to reconcile drift
+    # automated:
+    #   selfHeal: true
+
+  # Optional: ignore Secrets to avoid constant OutOfSync due to Harbor mutating them
+  ignoreDifferences:
+    - kind: Secret
+      jsonPointers:
+        - /data
