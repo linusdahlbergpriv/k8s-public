@@ -2,9 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: harbor
-  namespace: argocd
 spec:
-  project: default
   source:
     repoURL: https://github.com/linusdahlbergpriv/k8s-public.git
     targetRevision: main
@@ -15,11 +13,3 @@ spec:
       targetRevision: 1.14.0
       valueFiles:
         - values.yaml
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: harbor
-  syncPolicy:
-    automated:
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
