@@ -36,7 +36,7 @@ spec:
       - CreateNamespace=true
   ignoreDifferences:
     - group: batch
-      kind: Job           # Ignore ephemeral Jobs to avoid false OutOfSync
+      kind: Job
     - group: rbac.authorization.k8s.io
       kind: ClusterRole
     - group: rbac.authorization.k8s.io
@@ -45,4 +45,12 @@ spec:
       kind: Ingress
       jsonPointers:
       - /metadata/annotations
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+      - /spec/template/spec/containers/0/image
+    - group: core
+      kind: ConfigMap
+      jsonPointers:
+      - /data
       
