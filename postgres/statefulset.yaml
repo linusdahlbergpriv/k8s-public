@@ -6,29 +6,29 @@ spec:
   serviceName: "postgres"
   replicas: 1
   selector:
-	matchLabels:
-  	app: postgres
+    matchLabels:
+      app: postgres
   template:
-	metadata:
-  	labels:
-    	app: postgres
-	spec:
-  	  containers:
-    	    - name: postgres
-      	    image: postgres:14
-      	    env:
-        	       - name: POSTGRES_PASSWORD
-          	       value: "Changem3__"
-      	    volumeMounts:
-        	       - name: postgres-data
-          	       mountPath: /var/lib/postgresql/data
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:14
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "Changem3__"
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
-	- metadata:
-    	  name: postgres-data
-  	spec:
-    	  accessModes:
-      	      - ReadWriteOnce
-    	resources:
-      	  requests:
-        	    storage: 5Gi
-    	storageClassName: local-path
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: local-path
