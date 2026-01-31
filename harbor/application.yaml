@@ -20,23 +20,5 @@ spec:
       selfHeal: true    # Automatically reconcile drift
     syncOptions:
       - CreateNamespace=true
-  ignoreDifferences:
-    - group: batch
-      kind: Job
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRole
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRoleBinding
-    - group: networking.k8s.io
-      kind: Ingress
-      jsonPointers:
-      - /metadata/annotations
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-      - /spec/template/spec/containers/0/image
-    - group: core
-      kind: ConfigMap
-      jsonPointers:
-      - /data
+
       
