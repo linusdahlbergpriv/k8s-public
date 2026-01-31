@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: harbor
-  namespace: argocd
+  namespace: argocd   # Argo CD Application resource lives here
 spec:
   project: default
   source:
-    repoURL: https://helm.goharbor.io
+    repoURL: https://helm.goharbor.io   # Remote Helm chart repo
     chart: harbor
     targetRevision: 1.14.0
     helm:
@@ -28,10 +28,13 @@ spec:
         externalURL: https://harbor.orion.local
   destination:
     server: https://kubernetes.default.svc
-    namespace: harbor
+    namespace: harbor   # Namespace where Harbor will be deployed
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: true       # Delete orphaned resources automatically
+      selfHeal: true    # Reconcile drift automatically
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    - group: batch
+      kind: Job           # Ignore ephemeral Jobs to avoid false OutOfSync
