@@ -11,25 +11,41 @@ spec:
     targetRevision: 1.14.0
     helm:
       values: |
-expose:
-  type: loadBalancer
-  tls:
-    enabled: true
-    certSource: secret
-    auto:
-      commonName: ""
-    secret:
-      secretName: "harbor-cert"
-      notarySecretName: "harbor-cert"
-  ingress:
-    hosts:
-      core: harbor.orion.local
-      notary: harbor.orion.local
-
-externalURL: https://harbor.orion.local
+        expose:
+          type: loadBalancer
+          tls:
+            enabled: true
+            certSource: secret
+            auto:
+              commonName: ""
+            secret:
+              secretName: "harbor-cert"
+              notarySecretName: "harbor-cert"
+          ingress:
+            hosts:
+              core: harbor.orion.local
+              notary: harbor.orion.local
+        externalURL: https://harbor.orion.local
+        persistence:
+          enabled: true
+          resourcePolicy: keep
+          persistentVolumeClaim:
+            registry:
+              size: 10Gi
+            chartmuseum:
+              size: 5Gi
+            jobservice:
+              size: 5Gi
+            database:
+              size: 10Gi
+            redis:
+              size: 5Gi
   destination:
     server: https://kubernetes.default.svc
     namespace: harbor
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
