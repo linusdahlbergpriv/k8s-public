@@ -29,7 +29,13 @@ data:
           matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
-
+                
+      - drop_event:
+          when:
+            not:
+              equals:
+                kubernetes.namespace: "lab"
+                
       - decode_json_fields:
           fields: ["message"]
           target: ""
