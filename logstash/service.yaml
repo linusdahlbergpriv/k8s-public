@@ -4,9 +4,10 @@ metadata:
   name: logstash
   namespace: logging
 spec:
+  type: LoadBalancer
   selector:
     app: logstash
   ports:
     - protocol: TCP
-      port: 5044
-      targetPort: 5044
+      port: 5044        # external port
+      targetPort: 5044  # container port
