@@ -45,5 +45,5 @@ data:
     output.logstash:
       hosts: ["logstash.logging.svc.cluster.local:5044"]
 
-    logging.level: info
+    logging.level: debug
     logging.to_files: false
