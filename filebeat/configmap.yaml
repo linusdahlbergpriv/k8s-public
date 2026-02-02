@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-config
+  namespace: logging
+data:
+  filebeat.yml: |
+    filebeat.inputs:
+      - type: filestream
+        id: kubernetes-containers
+        paths:
+          - /var/log/containers/*.log
+        parsers:
+          - container: ~
+
+    processors:
+      # Add Kubernetes metadata (pod, namespace, container, node, labels)
+      - add_kubernetes_metadata:
+          host: ${NODE_NAME}
+          matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
+
+      # Drop everything that is NOT from the "lab" namespace
+      - drop_event:
+          when:
+            not:
+              equals:
+                kubernetes.namespace: "lab"
+
+    output.logstash:
+      hosts: ["logstash.logging.svc.cluster.local:5044"]
+
+    logging.level: info
+    logging.to_files: false
