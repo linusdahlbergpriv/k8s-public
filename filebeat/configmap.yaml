@@ -10,10 +10,10 @@ data:
         id: kubernetes-containers
         paths:
           - /var/log/containers/*.log
-        prospector.scanner.symlinks: true
 
+        # REQUIRED for Kubernetes
+        symlinks: true
         scan_frequency: 10s
-        close_eof: false
 
         parsers:
           - container: ~
@@ -24,28 +24,25 @@ data:
           match: after
 
     processors:
+      # Add k8s metadata FIRST
       - add_kubernetes_metadata:
           host: ${NODE_NAME}
           matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
-                
+
+      # Keep ONLY lab namespace
       - drop_event:
           when:
             not:
               equals:
                 kubernetes.namespace: "lab"
-                
+
+      # Decode JSON logs
       - decode_json_fields:
           fields: ["message"]
           target: ""
           overwrite_keys: true
-
-      - drop_event:
-          when:
-            not:
-              equals:
-                kubernetes.namespace: "lab"
 
     output.logstash:
       hosts: ["logstash.logging.svc.cluster.local:5044"]
