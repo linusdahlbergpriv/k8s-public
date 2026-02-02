@@ -22,11 +22,11 @@ data:
                 logs_path: "/var/log/containers/"
 
       # Drop everything that is NOT from the "lab" namespace
-      - drop_event:
-          when:
-            not:
-              equals:
-                kubernetes.namespace: "lab"
+#      - drop_event:
+#          when:
+#            not:
+#              equals:
+#                kubernetes.namespace: "lab"
 
     output.logstash:
       hosts: ["logstash.logging.svc.cluster.local:5044"]
