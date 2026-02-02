@@ -27,12 +27,12 @@ data:
             - logs_path:
                 logs_path: "/var/log/containers/"
 
-      # Only keep events from the "lab" namespace
-      - drop_event:
-          when:
-            not:
-              equals:
-                kubernetes.namespace: "lab"
+#     # Only keep events from the "lab" namespace
+#      - drop_event:
+#          when:
+#            not:
+#              equals:
+#                kubernetes.namespace: "lab"
 
       # Decode JSON logs like {"level":"info", "msg":"request ok", ...}
       - decode_json_fields:
