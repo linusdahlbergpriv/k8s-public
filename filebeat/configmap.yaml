@@ -42,9 +42,5 @@ data:
               equals:
                 kubernetes.namespace: "lab"
 
-#    # Send logs to Logstash
-#    output.logstash:
-#      hosts: ["logstash.logging.svc.cluster.local:5044"]
-
     logging.level: debug
     logging.to_files: false
