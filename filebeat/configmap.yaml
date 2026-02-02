@@ -10,6 +10,7 @@ data:
         id: kubernetes-containers
         paths:
           - /var/log/containers/*.log
+        symlinks: true
         parsers:
           - container: ~
 
