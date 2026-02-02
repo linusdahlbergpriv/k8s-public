@@ -13,16 +13,42 @@ data:
         parsers:
           - container: ~
 
+        # Multi-line for Java stack traces
+        multiline:
+          pattern: '^(Exception|\\s+at )'
+          negate: false
+          match: after
+
     processors:
-      # Add Kubernetes metadata (pod, namespace, container, node, labels)
+      # Add Kubernetes metadata (pod, namespace, container, node)
       - add_kubernetes_metadata:
           host: ${NODE_NAME}
           matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
 
-    output.logstash:
-      hosts: ["logstash.logging.svc.cluster.local:5044"]
+      # Only keep events from the "lab" namespace
+      - drop_event:
+          when:
+            not:
+              equals:
+                kubernetes.namespace: "lab"
 
-    logging.level: info
+      # Decode JSON logs like {"level":"info", "msg":"request ok", ...}
+      - decode_json_fields:
+          fields: ["message"]
+          target: ""
+          overwrite_keys: true
+
+    # Debugging: temporarily output to console so you can see logs in Filebeat pod
+    output.console:
+      enabled: true
+      pretty: true
+
+    # Comment out Logstash for debugging
+    # output.logstash:
+    #   hosts: ["logstash.logging.svc.cluster.local:5044"]
+
+    logging.level: debug
+    logging.selectors: ["harvester","input"]
     logging.to_files: false
