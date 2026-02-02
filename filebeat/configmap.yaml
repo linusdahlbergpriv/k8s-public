@@ -10,42 +10,39 @@ data:
         id: kubernetes-containers
         paths:
           - /var/log/containers/*.log
-        symlinks: true
-        follow_symlinks: true
+        prospector.scanner.symlinks: true
+
         scan_frequency: 10s
-        ignore_older: 0
-        close_eof: true
+        close_eof: false
+
         parsers:
           - container: ~
+
         multiline:
           pattern: '^(Exception|\s+at )'
           negate: false
           match: after
 
     processors:
-      # Add Kubernetes metadata (pod, namespace, container, node)
       - add_kubernetes_metadata:
           host: ${NODE_NAME}
           matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
 
-      # Decode JSON logs like {"level":"info","msg":"request ok", ...}
       - decode_json_fields:
           fields: ["message"]
           target: ""
           overwrite_keys: true
 
-      # Only keep events from the "lab" namespace
       - drop_event:
           when:
             not:
               equals:
                 kubernetes.namespace: "lab"
 
-    # Send logs to Logstash
     output.logstash:
       hosts: ["logstash.logging.svc.cluster.local:5044"]
 
-    logging.level: debug
+    logging.level: info
     logging.to_files: false
