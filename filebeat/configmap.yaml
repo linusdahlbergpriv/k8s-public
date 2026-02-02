@@ -6,7 +6,7 @@ metadata:
 data:
   filebeat.yml: |
     filebeat.inputs:
-      - type: log
+      - type: filestream
         id: kubernetes-containers
         paths:
           - /var/log/containers/*.log
