@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: kibana
   namespace: logging
-  labels:
-    app: kibana
 spec:
   replicas: 1
   selector:
@@ -18,15 +16,23 @@ spec:
       containers:
         - name: kibana
           image: docker.elastic.co/kibana/kibana:9.2.4
+          ports:
+            - containerPort: 5601
           env:
             - name: ELASTICSEARCH_HOSTS
               value: "http://elasticsearch.logging.svc.cluster.local:9200"
-          ports:
-            - containerPort: 5601
+          volumeMounts:
+            - name: kibana-config
+              mountPath: /usr/share/kibana/config/kibana.yml
+              subPath: kibana.yml
           resources:
             requests:
-              cpu: 500m
+              cpu: 250m
               memory: 512Mi
             limits:
-              cpu: 1000m
+              cpu: 500m
               memory: 1Gi
+      volumes:
+        - name: kibana-config
+          configMap:
+            name: kibana-config
