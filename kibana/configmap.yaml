@@ -8,21 +8,13 @@ data:
     server.name: kibana
     server.host: "0.0.0.0"
 
-    # Elasticsearch
+    # Connect to Elasticsearch
     elasticsearch.hosts: ["http://elasticsearch.logging.svc.cluster.local:9200"]
-
-    # Security
-    xpack.security.enabled: true
-    xpack.security.encryptionKey: "f8d3a9c1e7b2d4f6a1c3e5b7d9f0a2b1"
-    xpack.security.session.idleTimeout: "1h"
-
-    # Enable user/role management
-    xpack.security.management.enabled: true
 
     # Telemetry
     xpack.telemetry.enabled: false
 
-    # Logging (valid syntax)
+    # Logging
     logging.root.level: info
     logging.appenders.console.type: console
     logging.appenders.console.layout.type: json
