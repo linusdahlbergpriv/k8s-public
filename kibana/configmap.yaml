@@ -11,9 +11,6 @@ data:
     # Connect to Elasticsearch
     elasticsearch.hosts: ["http://elasticsearch.logging.svc.cluster.local:9200"]
 
-    # Telemetry
-    xpack.telemetry.enabled: false
-
     # Logging
     logging.root.level: info
     logging.appenders.console.type: console
