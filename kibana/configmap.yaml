@@ -7,19 +7,21 @@ data:
   kibana.yml: |
     server.name: kibana
     server.host: "0.0.0.0"
+
+    # Elasticsearch connection
     elasticsearch.hosts: ["http://elasticsearch.logging.svc.cluster.local:9200"]
-    
-    # Enable security features
+
+    # Security
     xpack.security.enabled: true
     xpack.security.encryptionKey: "a-very-secret-key"
     xpack.security.session.idleTimeout: "1h"
 
-    # Enable role/user management UI
+    # Role and user management
     xpack.security.management.enabled: true
-    xpack.security.showInsecureClusterWarning: false
 
-    # Enable telemetry (optional)
+    # Telemetry
     xpack.telemetry.enabled: false
 
-    # Logging
-    logging.verbose: true
+    # Logging (correct syntax)
+    logging.root.level: info
+    logging.events: ["info", "warning", "error"]
