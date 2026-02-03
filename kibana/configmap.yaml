@@ -13,7 +13,7 @@ data:
 
     # Security
     xpack.security.enabled: true
-    xpack.security.encryptionKey: "a-very-secret-key"
+    xpack.security.encryptionKey: "f8d3a9c1e7b2d4f6a1c3e5b7d9f0a2b1"
     xpack.security.session.idleTimeout: "1h"
 
     # Enable user/role management
