@@ -1,22 +1,28 @@
-server.name: kibana
-server.host: "0.0.0.0"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kibana-config
+  namespace: logging
+data:
+  kibana.yml: |
+    server.name: kibana
+    server.host: "0.0.0.0"
 
-# Elasticsearch
-elasticsearch.hosts: ["http://elasticsearch.logging.svc.cluster.local:9200"]
+    # Elasticsearch
+    elasticsearch.hosts: ["http://elasticsearch.logging.svc.cluster.local:9200"]
 
-# Security
-xpack.security.enabled: true
-xpack.security.encryptionKey: "a-very-secret-key"
-xpack.security.session.idleTimeout: "1h"
+    # Security
+    xpack.security.enabled: true
+    xpack.security.encryptionKey: "a-very-secret-key"
+    xpack.security.session.idleTimeout: "1h"
 
-# Enable user/role management
-xpack.security.management.enabled: true
+    # Enable user/role management
+    xpack.security.management.enabled: true
 
-# Telemetry
-xpack.telemetry.enabled: false
+    # Telemetry
+    xpack.telemetry.enabled: false
 
-# Logging (valid syntax)
-logging.root.level: info
-# Optionally, log to console only
-logging.appenders.console.type: console
-logging.appenders.console.layout.type: json
+    # Logging (valid syntax)
+    logging.root.level: info
+    logging.appenders.console.type: console
+    logging.appenders.console.layout.type: json
