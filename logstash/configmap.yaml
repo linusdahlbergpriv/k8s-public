@@ -11,19 +11,20 @@ data:
       }
     }
 
-    filter {
-      # Parse JSON messages from Filebeat
-      json {
-        source => "message"
-        target => "parsed_json"
-        remove_field => ["message"]
-        add_tag => ["json_parsed"]
-      }
-    }
+#    filter {
+#      # Parse JSON messages from Filebeat
+#      json {
+#        source => "message"
+#        target => "parsed_json"
+#        remove_field => ["message"]
+#        add_tag => ["json_parsed"]
+#      }
+#    }
 
     output {
       elasticsearch {
         hosts => ["http://elasticsearch.logging.svc.cluster.local:9200"]
+        data_stream => false
         index => "filebeat-%{+YYYY.MM.dd}"
         # Optional: manage document IDs to prevent duplicates
         # document_id => "%{[@metadata][_id]}"
