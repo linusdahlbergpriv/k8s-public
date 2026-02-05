@@ -11,16 +11,6 @@ data:
       }
     }
 
-#    filter {
-#      # Parse JSON messages from Filebeat
-#      json {
-#        source => "message"
-#        target => "parsed_json"
-#        remove_field => ["message"]
-#        add_tag => ["json_parsed"]
-#      }
-#    }
-
     output {
       elasticsearch {
         hosts => ["http://elasticsearch.logging.svc.cluster.local:9200"]
