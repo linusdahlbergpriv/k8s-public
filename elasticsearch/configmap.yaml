@@ -8,5 +8,6 @@ data:
     cluster.name: logging-cluster
     network.host: 0.0.0.0
     discovery.type: single-node
-    xpack.security.enabled: false
+    xpack.security.enabled: true
+    xpack.security.enrollment.enabled: true
     http.port: 9200

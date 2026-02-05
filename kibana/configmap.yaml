@@ -10,6 +10,15 @@ data:
 
     # Connect to Elasticsearch
     elasticsearch.hosts: ["http://elasticsearch.logging.svc.cluster.local:9200"]
+    elasticsearch.username: "elastic"
+    elasticsearch.password: "${ELASTICSEARCH_PASSWORD}"
+
+    # Security
+    xpack.security.enabled: true
+    xpack.security.authc.providers:
+      basic.basic1:
+        order: 0
+        enabled: true
 
     # Logging
     logging.root.level: info
