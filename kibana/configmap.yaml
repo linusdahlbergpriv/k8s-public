@@ -13,8 +13,7 @@ data:
     elasticsearch.username: "elastic"
     elasticsearch.password: "${ELASTICSEARCH_PASSWORD}"
 
-    # Security
-    xpack.security.enabled: true
+    # Authentication
     xpack.security.authc.providers:
       basic.basic1:
         order: 0
