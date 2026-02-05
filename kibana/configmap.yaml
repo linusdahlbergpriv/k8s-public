@@ -10,7 +10,7 @@ data:
 
     # Connect to Elasticsearch
     elasticsearch.hosts: ["http://elasticsearch.logging.svc.cluster.local:9200"]
-    elasticsearch.username: "elastic"
+    elasticsearch.username: "kibana_system"
     elasticsearch.password: "${ELASTICSEARCH_PASSWORD}"
 
     # Authentication
