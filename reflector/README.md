@@ -9,6 +9,8 @@ This guide explains how to deploy the EmberStack Reflector using Helm and config
 ```sh
 helm repo add emberstack https://emberstack.github.io/helm-charts
 helm repo update
+# helm show values emberstack/reflector > values.yaml
+# helm upgrade --install reflector emberstack/reflector -n reflector --create-namespace -f values.yaml
 helm upgrade --install reflector emberstack/reflector -n reflector --create-namespace
 ```
 
