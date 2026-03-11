@@ -18,7 +18,10 @@ spec:
           image: postgres:14
           env:
             - name: POSTGRES_PASSWORD
-              value: "Changem3__"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
